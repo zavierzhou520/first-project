@@ -25,6 +25,9 @@ $(function () {
             message: "用户名长度是3-9位",
             min: 3,
             max: 9
+          },
+          callback: {
+            message: '用户名不正确'
           }
         }
       },
@@ -37,6 +40,9 @@ $(function () {
             min: 6,
             max: 12,
             message: '用户密码长度是6-12位'
+          },
+          callback: {
+            message: '用户密码不正确'
           }
         }
       }
@@ -69,12 +75,16 @@ $(function () {
           location.href = "index.html";
         }
 
+
         if(info.error === 1000) {
-          alert("用户名不存在");
+          //手动让username校验失败
+          //参数1： 更新哪个字段
+          //参数2： 更新为什么状态  INVALID  VALID
+          $("form").data("bootstrapValidator").updateStatus("username", "INVALID", "callback");
         }
 
         if(info.error === 1001) {
-          alert("密码错误");
+          $("form").data("bootstrapValidator").updateStatus("password", "INVALID", "callback");
         } 
       }
     });
